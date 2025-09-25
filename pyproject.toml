@@ -1,0 +1,26 @@
+[tool]
+# Tool configurations
+
+[tool.black]
+## Black (formatter)
+
+line-length = 120
+target-version = ['py312']
+include = '\.pyi?$'
+
+
+[tool.flake8]
+## Flake8 (PEP-8 linter)
+ignore = "E203, E266, E501, W503, F403, F401"
+exclude = ".git, __pycache__, venv, .vscode, .mypy_cache, .pytest_cache, build, dist"
+max-line-length = 120
+max-complexity = 18
+select = "B,C,E,F,W,T4,B9"
+accept-encodings = "utf-8"
+inline-quotes = "single"
+max-linenumber = 500
+multiline-quotes = "double"
+
+
+[tool.isort]
+profile = "black"
