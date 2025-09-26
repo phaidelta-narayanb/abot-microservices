@@ -7,12 +7,12 @@ from pydantic import BaseModel
 class DataIn(BaseModel):
     # Pandas DataFrame parameters
     data: list[dict[str, Any]]
-    index: list[Any] | None
-    columns: list[str] | None
+    index: list[Any] | None = None
+    columns: list[str] | None = None
 
     # Other optional settings
-    index_column_names: str | list[str] | None
-    datetime_column_names: str | list[str] | None
+    index_column_names: str | list[str] | None = None
+    datetime_column_names: str | list[str] | None = None
 
 
 class AggregationMethod(str, Enum):
@@ -28,7 +28,8 @@ class AggregationMethod(str, Enum):
     SUMMARY = "summary"
 
 
-class AggregationIn(DataIn, BaseModel):
+class AggregationIn(BaseModel):
+    df: DataIn
     method: AggregationMethod | list[AggregationMethod] = AggregationMethod.RECENT
     aggregation_column: str | None = None
     aggregation_options: dict[str, Any] | None = None
@@ -37,5 +38,6 @@ class AggregationIn(DataIn, BaseModel):
 AggregationOut = dict[AggregationMethod, float | int]
 
 
-class OutliersIn(DataIn, BaseModel):
-    outliers_column: str | None
+class OutliersIn(BaseModel):
+    df: DataIn
+    outliers_column: str | None = None
